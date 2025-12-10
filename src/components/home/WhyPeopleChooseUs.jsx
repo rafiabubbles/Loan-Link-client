@@ -1,12 +1,13 @@
 import React from 'react';
 
-// কেন গ্রাহকরা আমাদের বেছে নেয় তার ডেটা
+// data for features
 const features = [
     {
         title: "Fair Interest Rates",
         description: "Cum sociis natoque penatibus et magnis parturient. Pro val nibh et elit mollis commodo et nec augue tristique sed.",
         icon: (
-            // একটি ঘড়ির আইকন (Tailwind/DaisyUI-এ সহজলভ্য)
+            // watch icon
+
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 text-green-700"
@@ -18,13 +19,13 @@ const features = [
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         ),
-        iconBgColor: "bg-lime-200/50" // হালকা সবুজ ব্যাকগ্রাউন্ড
+        iconBgColor: "bg-lime-200/50" //light green background
     },
     {
         title: "Loans up to $5000",
         description: "Cum sociis natoque penatibus et magnis parturient. Pro val nibh et elit mollis commodo et nec augue tristique sed.",
         icon: (
-            // একটি রকেট আইকন
+            //rocket icon
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 text-green-700"
@@ -60,11 +61,11 @@ const features = [
 
 export default function WhyPeopleChooseUs() {
     return (
-        // সেকশনের প্রধান কন্টেইনার
+        // main container
         <section className="py-16 bg-white">
             <div className="max-w-6xl mx-auto px-6 text-center">
 
-                {/* হেডিং */}
+                {/* heading*/}
                 <h2 className="text-4xl font-extrabold text-gray-800">
                     Why people choose us
                 </h2>
@@ -72,35 +73,35 @@ export default function WhyPeopleChooseUs() {
                     WE OFFER A TOTALLY NEW WAY OF BORROWING
                 </p>
 
-                {/* ফিচার কার্ড গ্রিড */}
+                {/* feature grid style */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            // কার্ডের স্টাইলিং (স্ক্রিনশটের মতো হালকা ধূসর ব্যাকগ্রাউন্ড)
+                            // card style
                             className="p-8 bg-gray-50 rounded-lg shadow-sm text-left"
                         >
                             <div className="flex items-center mb-4">
-                                {/* আইকন কন্টেইনার: বৃত্তাকার সবুজ পটভূমি */}
+                                {/* icon container */}
                                 <div className={`flex items-center justify-center w-12 h-12 rounded-full ${feature.iconBgColor} border-2 border-lime-400/80`}>
                                     {feature.icon}
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-800 ml-4 hidden">{feature.title}</h3>
                             </div>
 
-                            {/* টাইটেল */}
+                            {/* Title */}
                             <h3 className="text-xl font-bold text-gray-800 mb-2">
                                 {feature.title}
                             </h3>
 
-                            {/* বর্ণনা */}
+                            {/* description */}
                             <p className="text-gray-600 mb-6">
                                 {feature.description}
                             </p>
 
-                            {/* "HOW IT WORKS?" লিঙ্ক/বাটন */}
+                            {/* "HOW IT WORKS */}
                             <a
-                                href="#" // আপনার রুট বা সঠিক লিঙ্কে পরিবর্তন করুন
+                                href="./HowItWorks.jsx" // 
                                 className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 tracking-wider uppercase transition duration-150"
                             >
                                 HOW IT WORKS?
