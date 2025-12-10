@@ -25,11 +25,11 @@ export default function AvailableLoans() {
     if (loading) return <LoadingSpinner />;
 
     return (
-        // Added padding-y and a max-width container for the desired margin (mx-6 equivalent)
-        <section className="py-12">
-            <div className="max-w-6xl mx-auto px-6"> {/* Added max-w-6xl and px-6 for margin */}
 
-                {/* Heading style as requested */}
+        <section className="py-12">
+            <div className="max-w-6xl mx-auto px-6">
+
+
                 <h2 className="text-4xl font-extrabold mb-10 text-center text-blue-900">Available Loans</h2>
 
                 {/* Grid layout */}
@@ -69,7 +69,7 @@ export default function AvailableLoans() {
                                     <div>
                                         <Link
                                             to={`/loan/${loan._id}`}
-                                            // Button style: green-500 background as requested
+
                                             className="btn btn-sm bg-green-500 text-white font-semibold py-2 px-4 rounded-lg 
                                                        hover:bg-green-600 transition duration-200 shadow-md"
                                         >
