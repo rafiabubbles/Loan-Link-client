@@ -1,17 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <div>Hello World</div>,
-  },
-]);
+import React, { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import "./index.css";
+import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import { router } from "./routes/Routes";
+import { ToastContainer } from "react-toastify";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
       <AuthProvider>
@@ -19,5 +15,5 @@ createRoot(document.getElementById('root')).render(
         <ToastContainer />
       </AuthProvider>
     </ThemeProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

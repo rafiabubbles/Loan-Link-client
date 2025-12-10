@@ -3,8 +3,9 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  // ✅ DaisyUI লোড করার সঠিক জায়গা
+  plugins: [require("daisyui")], 
   daisyui: {
-    themes: ["light", "dark"], // ✅ enable both themes
+    themes: ["light", "dark"], 
   },
 };
