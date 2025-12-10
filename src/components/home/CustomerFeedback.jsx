@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 
-// স্ক্রলবার লুকানোর জন্য কাস্টম CSS
-// বাস্তব অ্যাপ্লিকেশনে, এটি আপনার index.css বা একটি কাস্টম CSS ফাইলে থাকা উচিত।
-// সুবিধার জন্য, আমরা এটিকে একটি <style> ট্যাগে রেন্ডার করার জন্য একটি কাস্টম কম্পোনেন্ট তৈরি করব।
+
 
 const ScrollbarHideStyle = () => (
     <style jsx="true">{`
-        /* Webkit-ভিত্তিক ব্রাউজার (Chrome, Safari) */
+        
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
@@ -27,58 +25,53 @@ export default function CustomerFeedback() {
         { name: "Nayeem Khan", text: "The online application was seamless. Truly a modern and efficient lending platform.", image: "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=80&q=80" },
     ];
 
-    // Banner background image URL (Change this to your actual image)
+
     const backgroundImageUrl = "https://images.unsplash.com/photo-1542838132-8418f731c34a?q=80&w=1974&auto=format&fit=crop";
 
-    // **অটো-স্লাইড লজিক**
+    // **Auto Slide Logic**
     const [currentIndex, setCurrentIndex] = useState(0);
     const carouselRef = useRef(null);
     const totalItems = feedbacks.length;
-    // এটি নির্দেশ করে, একটি স্ক্রীনে কয়টি কার্ড দেখা যাবে (lg:w-1/3 মানে ডেস্কটপে 3টি)
+    // card provide 3 items per view on desktop
     const itemsPerViewDesktop = 3;
 
     useEffect(() => {
-        // স্ক্রোল ফাংশন
+        // scroll funtion
         const scrollNext = () => {
             if (carouselRef.current) {
-                // বর্তমানে যে index-এ আছি, তার পরের index-এ যেতে চাই
+                //next index calculation
                 const nextIndex = (currentIndex + 1) % totalItems;
                 setCurrentIndex(nextIndex);
 
-                // কার্ডের প্রস্থ (Width) বের করা
-                // ধরে নিলাম, সব কার্ডের প্রস্থ একই
                 const itemWidth = carouselRef.current.children[0]?.offsetWidth || 0;
 
-                // স্ক্রোল করার দূরত্ব
-                // পরবর্তী কার্ডে স্ক্রোল করতে হবে
-                // মোট আইটেম থেকে বর্তমান আইটেম বাদ দিয়ে পরের আইটেমের অবস্থানে যেতে হবে।
+
                 const scrollDistance = nextIndex * itemWidth;
 
                 carouselRef.current.scrollTo({
                     left: scrollDistance,
-                    behavior: 'smooth' // মসৃণ স্লাইডের জন্য
+                    behavior: 'smooth' // for smooth scrolling
                 });
 
-                // যদি শেষ কার্ডে চলে আসে, তাহলে প্রথম কার্ডে ফিরে যাওয়ার জন্য 3 সেকেন্ড বিরতি দিতে হবে।
-                // যখন `nextIndex` 0 হবে, তখন এটি স্বয়ংক্রিয়ভাবে প্রথম অবস্থানে স্ক্রোল করবে।
+
             }
         };
 
-        // প্রতি 3 সেকেন্ডে স্লাইড
+        // 3 seconds scroll interval
         const intervalId = setInterval(scrollNext, 3000);
 
-        // কম্পোনেন্ট আনমাউন্ট হলে ইন্টারভাল পরিষ্কার করুন
+        // cleanup function
         return () => clearInterval(intervalId);
-    }, [currentIndex, totalItems]); // currentIndex পরিবর্তন হলে useEffect আবার চলবে
+    }, [currentIndex, totalItems]); // dependency array
 
-    // **ক্যারোসেলের জন্য রেন্ডার অংশ**
+
 
     return (
         <section
             className="py-16 mt-8 bg-cover bg-center"
             style={{ backgroundImage: `url(${backgroundImageUrl})` }}
         >
-            {/* কাস্টম স্টাইল রেন্ডার করুন */}
+            {/* custom style render*/}
             <ScrollbarHideStyle />
 
             {/* Overlay to darken the image and make text readable */}
@@ -93,15 +86,13 @@ export default function CustomerFeedback() {
 
                     {/* Carousel Container */}
                     <div
-                        ref={carouselRef} // ref যোগ করা হয়েছে
+                        ref={carouselRef} // ref for scrolling
                         className="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-4 scrollbar-hide"
                     >
                         {feedbacks.map((f, i) => (
                             <div
                                 key={i}
-                                // flex-none w-full: মোবাইল বা ছোট স্ক্রিনে পূর্ণ প্রস্থ
-                                // md:w-1/2: মাঝারি স্ক্রিনে অর্ধেক প্রস্থ
-                                // lg:w-1/3: বড় স্ক্রিনে এক-তৃতীয়াংশ প্রস্থ (প্রতি লাইনে 3টি দেখাবে)
+
                                 className="flex-none w-full md:w-1/2 lg:w-1/3 p-6 bg-white shadow-xl rounded-lg text-gray-800 snap-start"
                             >
                                 {/* Rating Stars */}
