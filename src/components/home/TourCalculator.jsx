@@ -104,25 +104,25 @@ export default function TourCalculator() {
                     </div>
                 </div>
 
-                {/* ডান দিক: ক্যালকুলেটর সেকশন */}
+                {/* right side*/}
                 <div className="bg-blue-900 p-8 rounded-lg shadow-2xl text-white">
                     <h3 className="text-3xl font-extrabold mb-8 text-white text-center">
                         Calculate Loan Rate
                     </h3>
 
-                    {/* লোনের পরিমাণ (Range Slider) */}
+                    {/* loan amount */}
                     <div className="mb-8">
                         <label className="block text-sm font-semibold mb-3">Loan Amount</label>
                         <div className="flex justify-between text-lg font-bold mb-2">
                             <span>${MIN_AMOUNT}</span>
-                            <span>${loanAmount}</span> {/* বর্তমান মান */}
+                            <span>${loanAmount}</span> {/* current value */}
                             <span>${MAX_AMOUNT}</span>
                         </div>
                         <input
                             type="range"
                             min={MIN_AMOUNT}
                             max={MAX_AMOUNT}
-                            step={500} // $500 স্টেপে বাড়বে
+                            step={500} // $500 increments
                             value={loanAmount}
                             onChange={handleAmountChange}
                             className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-200"
@@ -132,12 +132,12 @@ export default function TourCalculator() {
                         />
                     </div>
 
-                    {/* সময়ের সীমা (Months) */}
+                    {/* Loan Term (Months) */}
                     <div className="mb-10">
                         <label className="block text-sm font-semibold mb-3">Loan Term (Months)</label>
                         <div className="flex justify-between text-lg font-bold mb-2">
                             <span>{MIN_MONTHS} months</span>
-                            <span className="text-lime-200">{loanMonths} months</span> {/* বর্তমান সময় */}
+                            <span className="text-lime-200">{loanMonths} months</span> {/* current value */}
                             <span>{MAX_MONTHS} months</span>
                         </div>
                         <input
@@ -154,7 +154,7 @@ export default function TourCalculator() {
                         />
                     </div>
 
-                    {/* ফলাফল ডিসপ্লে */}
+                    {/* result */}
                     <div className="space-y-4 mb-8 border-t border-teal-400 pt-6">
                         <div className="flex justify-between items-center text-xl">
                             <span className="font-light">Borrowing:</span>
@@ -166,7 +166,7 @@ export default function TourCalculator() {
                         </div>
                     </div>
 
-                    {/* বাটন */}
+                    {/* Apply Now Button */}
                     <div className="text-center">
                         <button className="w-full py-3 bg-white text-blue-900 font-bold rounded-lg hover:bg-green-500 transition duration-200">
                             Apply Now
