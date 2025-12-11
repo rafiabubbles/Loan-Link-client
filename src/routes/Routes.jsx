@@ -29,6 +29,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
 
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -79,10 +80,10 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/dashboard/borrower/loan-applications",
+                path: "/loan-application",
                 element: (
                     <PrivateRoute>
-                        <LoanApplicationForm />
+                        < LoanApplicationForm />
                     </PrivateRoute>
                 ),
             },

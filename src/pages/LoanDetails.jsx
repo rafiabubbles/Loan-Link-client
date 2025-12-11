@@ -56,7 +56,7 @@ export default function LoanDetails() {
         }
 
         // 3. ড্যাশবোর্ডে নেভিগেট করুন (অ্যাপ্লাই স্ট্যাটাস সহ)
-        navigate(`/dashboard/my-loans`, { state: { applyLoanId: id } });
+        navigate(`/loan-application`, { state: { applyLoanId: id } });
     };
 
     // লোডিং স্টেট

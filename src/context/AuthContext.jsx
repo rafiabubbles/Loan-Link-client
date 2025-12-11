@@ -26,6 +26,20 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const handleSyncUser = async (user) => {
+        try {
+            // নতুন রুট /api/user/sync এ পোস্ট করা হচ্ছে
+            const syncRes = await api.post('/api/user/sync', {
+                email: user.email,
+                name: user.displayName, // বা অন্য কোনো নাম
+            });
+            // console.log("User Synced to MongoDB:", syncRes.data);
+            return syncRes.data; // MongoDB ডেটা (রোল সহ) রিটার্ন করবে
+        } catch (error) {
+            console.error("Error during user sync/creation:", error);
+            return null;
+        }
+    };
     // বাস্তব Firebase Listener: Auth স্টেট পরিবর্তন পর্যবেক্ষণ করে এবং রোল ফেচ করে
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -78,6 +92,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            await handleSyncUser(userCredential.user)
             // onAuthStateChanged listener স্বয়ংক্রিয়ভাবে ইউজার এবং রোল আপডেট করবে
             return { success: true, user: userCredential.user };
         } catch (error) {
@@ -92,6 +107,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             const result = await signInWithPopup(auth, googleProvider);
+            await handleSyncUser(result.user);
             // onAuthStateChanged listener স্বয়ংক্রিয়ভাবে ইউজার এবং রোল আপডেট করবে
             return { success: true, user: result.user };
         } catch (error) {
@@ -110,6 +126,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await handleSyncUser(result.user);
             // onAuthStateChanged listener স্বয়ংক্রিয়ভাবে ইউজার এবং রোল আপডেট করবে
             return { success: true, user: userCredential.user };
         } catch (error) {
