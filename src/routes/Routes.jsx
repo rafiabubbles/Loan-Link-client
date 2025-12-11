@@ -12,6 +12,7 @@ import Register from "../pages/Register";
 // Borrower
 import MyLoans from "../components/dashboard/Borrower/MyLoans";
 import MyProfile from "../components/dashboard/Borrower/MyProfile";
+import LoanApplicationForm from "../components/dashboard/Borrower/LoanApplication";
 
 // Manager
 import AddLoan from "../components/dashboard/Manager/AddLoan";
@@ -21,7 +22,6 @@ import ApprovedLoans from "../components/dashboard/Manager/ApprovedLoans";
 
 // Admin
 import AdminAllLoans from "../components/dashboard/Admin/AdminAllLoans";
-import LoanApplication from "../components/dashboard/Admin/LoanApplication";
 import ManageUsers from "../components/dashboard/Admin/ManageUsers";
 
 // Routes protection
@@ -78,6 +78,14 @@ export const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
+            {
+                path: "/dashboard/borrower/loan-applications",
+                element: (
+                    <PrivateRoute>
+                        <LoanApplicationForm />
+                    </PrivateRoute>
+                ),
+            },
 
             // Manager Routes
             {
@@ -122,14 +130,7 @@ export const router = createBrowserRouter([
                     </AdminRoute>
                 ),
             },
-            {
-                path: "/dashboard/admin/loan-applications",
-                element: (
-                    <AdminRoute>
-                        <LoanApplication />
-                    </AdminRoute>
-                ),
-            },
+
             {
                 path: "/dashboard/admin/manage-users",
                 element: (
