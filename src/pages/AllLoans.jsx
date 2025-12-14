@@ -100,7 +100,7 @@ export default function AllLoans() {
                                     <div className="text-center flex-1">
                                         <p className="text-xl font-extrabold text-green-600">
                                             {typeof loan.maxLimit === 'number' ?
-                                                `$${loan.maxLimit.toLocaleString()}` :
+                                                `BDT ${loan.maxLimit.toLocaleString()}` :
                                                 'N/A'}
                                         </p>
                                         <p className="text-xs text-gray-500 font-medium">Max Limit</p>

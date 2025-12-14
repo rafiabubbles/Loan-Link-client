@@ -25,6 +25,13 @@ const googleProvider = new GoogleAuthProvider();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    // 💡 নতুন স্টেট: লোনের সংখ্যা সংরক্ষণ করবে
+    const [loanCount, setLoanCount] = useState(0);
+
+    // 💡 নতুন ফাংশন: MyLoans থেকে সংখ্যা আপডেট করবে
+    const updateLoanCount = (count) => {
+        setLoanCount(count);
+    };
 
     const handleSyncUser = async (user) => {
         try {
@@ -56,18 +63,21 @@ export const AuthProvider = ({ children }) => {
 
                 // 2. 🚀 ব্যাকএন্ড থেকে ইউজারের রোল ফেচ করা 🚀
                 try {
-                    // সাধারণত, API কল করার জন্য Firebase ID Token ব্যবহার করা হয়।
-                    // এই উদাহরণের জন্য, আমরা ইমেইল ব্যবহার করে প্রোফাইল ফেচ করছি।
-                    // যদি আপনার API এ Auth Header প্রয়োজন হয়, তবে আপনাকে currentUser.getIdToken() ব্যবহার করতে হবে।
+                    // ID Token ব্যবহার করে অথোরাইজেশন হেডার সেট করতে হবে (নিরাপত্তার জন্য)
+                    const idToken = await currentUser.getIdToken();
 
-                    const res = await api.get(`/api/user/profile/${currentUser.email}`);
+                    const res = await api.get(`/api/user/profile/${currentUser.email}`, {
+                        headers: {
+                            Authorization: `Bearer ${idToken}`, // 💡 আইডি টোকেন ব্যবহার
+                        }
+                    });
                     const backendData = res.data;
 
                     // 3. রোল সহ চূড়ান্ত ইউজার অবজেক্ট সেট করা
                     setUser({
                         ...baseUser,
                         role: backendData.role || 'borrower', // ডিফল্ট রোল 'borrower' ধরে নিলাম
-                        // ... অন্যান্য প্রয়োজনীয় ডেটা
+                        // ... অন্যান্য প্রয়োজনীয় ডেটা
                     });
 
                 } catch (error) {
@@ -126,7 +136,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            await handleSyncUser(result.user);
+            await handleSyncUser(userCredential.user); // 💡 result.user এর পরিবর্তে userCredential.user হবে
             // onAuthStateChanged listener স্বয়ংক্রিয়ভাবে ইউজার এবং রোল আপডেট করবে
             return { success: true, user: userCredential.user };
         } catch (error) {
@@ -142,6 +152,7 @@ export const AuthProvider = ({ children }) => {
         try {
             await signOut(auth);
             setUser(null);
+            setLoanCount(0); // 💡 লগআউটের সময় লোনের সংখ্যা 0 সেট করুন
             setLoading(false);
             return { success: true };
         } catch (error) {
@@ -159,6 +170,9 @@ export const AuthProvider = ({ children }) => {
         logout,
         googleLogin,
         register,
+        // ✅ নতুন ভ্যালু যোগ করা হলো
+        loanCount,
+        updateLoanCount,
     };
 
     // Show a loading screen while checking auth state

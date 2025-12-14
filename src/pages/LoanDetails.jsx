@@ -116,7 +116,15 @@ export default function LoanDetails() {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V6m0 4v4m0 4v2"></path></svg>
                                 </div>
                                 <div className="stat-title">Maximum Limit</div>
-                                <div className="stat-value text-primary">${loan.maxLimit?.toLocaleString() || "N/A"}</div>
+                                <div className="stat-value text-primary">
+                                    {loan.maxLimit
+                                        ? new Intl.NumberFormat("en-BD", {
+                                            style: "currency",
+                                            currency: "BDT",
+                                            maximumFractionDigits: 0,
+                                        }).format(loan.maxLimit)
+                                        : "N/A"}
+                                </div>
                                 <div className="stat-desc">The maximum loan amount</div>
                             </div>
                         </div>

@@ -233,7 +233,7 @@ export default function LoanApplicationForm() {
                         />
                     </div>
                     <div className="form-control">
-                        <label className="label"><span className="label-text">Monthly Income (USD) *</span></label>
+                        <label className="label"><span className="label-text">Monthly Income (BDT) *</span></label>
                         <input
                             type="number"
                             name="monthlyIncome"
@@ -245,7 +245,7 @@ export default function LoanApplicationForm() {
                         />
                     </div>
                     <div className="form-control">
-                        <label className="label"><span className="label-text">Loan Amount (USD) *</span></label>
+                        <label className="label"><span className="label-text">Loan Amount (BDT) *</span></label>
                         <input
                             type="number"
                             name="loanAmount"
@@ -256,7 +256,13 @@ export default function LoanApplicationForm() {
                             max={loanData.maxLimit} // ম্যাক্স লিমিট যোগ করা হলো
                             className="input input-bordered w-full"
                         />
-                        <label className="label"><span className="label-text-alt text-red-500">Max Limit: ${loanData.maxLimit?.toLocaleString() || 'N/A'}</span></label>
+                        <label className="label">
+                            <span className="label-text-alt text-red-500">
+                                Max Limit: {loanData.maxLimit
+                                    ? `BDT ${loanData.maxLimit.toLocaleString("en-BD")}`
+                                    : "N/A"}
+                            </span>
+                        </label>
                     </div>
                 </div>
 
