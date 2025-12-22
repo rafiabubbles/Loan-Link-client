@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@plugin 'daisyui';
+
+/* --- Light Theme (Navy Blue & Light Green) --- */
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #001F3F;    /* Deep Navy Blue */
+  --color-secondary: #E8F5E9;  /* Very Light Green (Background/Accents) */
+  --color-accent: #4ade80;     /* Light/Bright Green (For buttons/success) */
+  --color-neutral: #1f2937;
+  --color-base-100: #ffffff;
+}
+
+/* --- Dark Theme --- */
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #4ade80;    /* Bright Green as primary in Dark mode */
+  --color-secondary: #001f3f;  /* Navy Blue as secondary */
+  --color-accent: #22c55e;
+  --color-base-100: #0f172a;   /* Dark Navy background */
+}
+
+.jost {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.arimo {
+  font-family: "Arimo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.active {
+  @apply text-accent font-bold; /* Active link ekhon green dekhabe */
+}
+
+@layer components {
+  .btn-main {
+    /* Navy blue button with Green hover effect */
+    @apply btn rounded-full bg-primary text-white btn-lg border-none hover:bg-accent hover:text-primary transition-all duration-300;
+  }
+  
+  .btn-outline-custom {
+    @apply btn btn-outline border-primary text-primary hover:bg-primary hover:text-white;
+  }
+}
+
+/* Animations (Same as before) */
+@keyframes infinite-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 40s linear infinite;
+}
+
+.pause-animation:hover {
+  animation-play-state: paused;
+}
