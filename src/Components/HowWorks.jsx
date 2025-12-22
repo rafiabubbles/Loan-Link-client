@@ -42,7 +42,7 @@ const steps = [
   },
 ];
 
-const HowWorks = () => {
+const HowWork = () => {
   return (
     <section className="py-20 bg-base-100 jost overflow-hidden">
       <div className="container mx-auto px-6">
