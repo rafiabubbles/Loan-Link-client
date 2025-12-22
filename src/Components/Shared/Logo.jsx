@@ -12,7 +12,7 @@ const Logo = () => {
 
       {/* Text with White/Light Color */}
       <span className="text-secondary text-2xl lg:text-3xl font-bold tracking-tight">
-        Quick Loan<span className="text-accent">Link</span>
+        Quick Lon<span className="text-accent">Link</span>
       </span>
     </Link>
   );
