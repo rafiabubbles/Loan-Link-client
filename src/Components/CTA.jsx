@@ -21,8 +21,8 @@ const CTA = () => {
               Fuel Your Dreams with <span className="text-accent">QuickLoanLink</span>
             </h2>
             <p className="text-white/80 text-lg md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed font-light">
-              Experience the future of micro-finance. Transparent, fast, and
-              designed to empower your financial journey.
+              Transparent, fast, and
+              designed to empower your financial journey.Experience the future of micro-finance.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
