@@ -54,7 +54,7 @@ const Hero = () => {
                 to="/contact"
                 className="btn bg-transparent border-none shadow-none text-primary   text-lg h-auto"
               >
-                Get Support Now
+                Get Support Now immidiately
               </Link>
             </div>
 
