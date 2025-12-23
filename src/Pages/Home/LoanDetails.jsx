@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { motion } from "motion/react";
-import { FaCheckCircle, FaPercentage, FaDollarSign } from "react-icons/fa";
+import React from "react";
+import { motion } from "framer-motion"; // motion/react change kore framer-motion use kora safe
+import { FaCheckCircle, FaPercentage, FaDollarSign, FaRegCalendarAlt } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Link, useParams } from "react-router";
@@ -9,7 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 const LoanDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const { data: loanData = [] } = useQuery({
+
+  const { data: loanData = {}, isLoading } = useQuery({
     queryKey: ["loanData", id],
     queryFn: async () => {
       const response = await axiosSecure.get(`/loans/all-loans/${id}`);
@@ -17,156 +18,119 @@ const LoanDetails = () => {
     },
   });
 
-  // console.log(id, loanData);
+  if (isLoading) return <div className="text-center py-20">Loading...</div>;
 
   return (
-    <div className="min-h-screen py-20 flex items-center justify-center jost">
+    <div className="min-h-screen py-20 flex items-center justify-center jost px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="bg-accent rounded-3xl shadow-2xl overflow-hidden max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2"
       >
-        {/* Left Side - Gradient Background with Loan Image */}
-        <div className="hidden lg:flex flex-col justify-center items-center bg-linear-to-br from-primary to-black text-white p-12 relative overflow-hidden">
-          {/* Abstract Background Shapes - Similar to login page */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-70 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-          <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-          <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
+        {/* Left Side - Image with Navy Blue & Light Green Badge */}
+        <div className="relative flex flex-col justify-center items-center bg-slate-900 p-8 lg:p-12 overflow-hidden min-h-[400px]">
+          {/* Decorative Background */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-30 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-          {/* Loan Image */}
-          <div className="z-10 relative">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20"
-            >
-              <img
-                src={loanData.image}
-                alt={loanData.loanTitle}
-                className="w-full h-auto object-cover"
-              />
-            </motion.div>
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="z-10 w-full relative"
+          >
+            <img
+              src={loanData.image || (loanData.images && loanData.images[0])}
+              alt={loanData.loanTitle}
+              className="w-full h-[350px] object-cover rounded-2xl border-4 border-white/10 shadow-2xl"
+            />
 
-            {/* Decorative Badge */}
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="absolute -bottom-6 -right-6 bg-secondary text-primary px-6 py-3 rounded-full shadow-lg font-bold text-lg"
-            >
-              Featured Loan
-            </motion.div>
-          </div>
+            {/* Navy Blue & Light Green Title Badge (Requested) */}
+            <div className="absolute -bottom-4 -left-4 -right-4 bg-[#001f3f] border-l-8 border-[#90EE90] p-6 shadow-2xl rounded-xl">
+              <h2 className="text-[#90EE90] text-2xl md:text-3xl font-bold uppercase tracking-wide">
+                {loanData.loanTitle || loanData.title}
+              </h2>
+              <p className="text-white/60 text-sm mt-1">Premium Financial Product</p>
+            </div>
+          </motion.div>
         </div>
 
         {/* Right Side - Loan Details */}
-        <div className="p-10 md:p-14 flex flex-col justify-center">
-          {/* Mobile Image - Shown only on small screens */}
-          <div className="lg:hidden mb-8">
-            <img
-              src={loanData.image}
-              alt={loanData.loanTitle}
-              className="w-full h-auto object-cover rounded-2xl shadow-lg"
-            />
+        <div className="p-10 md:p-14 flex flex-col justify-center bg-white">
+          <div className="mb-6">
+            <div className="flex items-center gap-2 text-primary bg-primary/10 w-fit px-4 py-1 rounded-full mb-3">
+              <BiCategory className="text-lg" />
+              <span className="font-bold text-sm uppercase">{loanData.category || "Loan Service"}</span>
+            </div>
+            <h1 className="text-4xl font-black text-slate-800 leading-tight">
+              Get {loanData.loanTitle || loanData.title} Today
+            </h1>
           </div>
 
-          {/* Loan Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-6"
-          >
-            <h1 className="text-4xl font-bold text-primary mb-2">
-              {loanData.loanTitle}
-            </h1>
-            <div className="flex items-center gap-2 text-base-content/60">
-              <BiCategory className="text-xl" />
-              <span className="font-medium">{loanData.category}</span>
-            </div>
-          </motion.div>
+          <p className="text-slate-600 leading-relaxed mb-8 text-lg">
+            {loanData.description}
+          </p>
 
-          {/* Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-8"
-          >
-            <p className="text-base-content/80 leading-relaxed">
-              {loanData.description}
-            </p>
-          </motion.div>
-
-          {/* Key Information Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8"
-          >
+          {/* Key Info Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
             {/* Interest Rate */}
-            <div className="bg-base-100 p-5 rounded-2xl border border-base-300 hover:border-primary/50 transition-colors">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <FaPercentage className="text-primary text-lg" />
-                </div>
-                <h3 className="font-bold text-base-content/70 text-sm">
-                  Interest Rate
-                </h3>
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <div className="flex items-center gap-3 mb-2 text-slate-500">
+                <FaPercentage className="text-primary" />
+                <span className="font-bold text-xs uppercase tracking-wider">Interest Rate</span>
               </div>
-              <p className="text-3xl font-bold text-primary">
-                {loanData.interestRate}%
+              <p className="text-3xl font-black text-primary">
+                {loanData.interestRate || loanData.interest}%
               </p>
             </div>
 
             {/* Max Limit */}
-            <div className="bg-base-100 p-5 rounded-2xl border border-base-300 hover:border-primary/50 transition-colors">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
-                  <FaDollarSign className=" text-lg" />
-                </div>
-                <h3 className="font-bold text-base-content/70 text-sm">
-                  Max Limit
-                </h3>
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <div className="flex items-center gap-3 mb-2 text-slate-500">
+                <FaDollarSign className="text-secondary" />
+                <span className="font-bold text-xs uppercase tracking-wider">Max Credit Limit</span>
               </div>
-              <p className="text-3xl font-bold">${loanData.maxLoanLimit}</p>
+              <p className="text-3xl font-black text-slate-800">
+                ${(loanData.maxLoanLimit || loanData.maxLimit)?.toLocaleString()}
+              </p>
             </div>
-          </motion.div>
+          </div>
 
-          {/* EMI Plans */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="mb-8"
-          >
-            <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-              <FaCheckCircle className="text-primary" />
-              Available EMI Plans
+          {/* EMI Plans Section */}
+          <div className="mb-8">
+            <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <FaRegCalendarAlt className="text-primary" />
+              Available Repayment Plans
             </h3>
-            <div className="grid grid-cols-2 gap-3">{loanData?.emiPlans}</div>
-          </motion.div>
+            <div className="flex flex-wrap gap-2">
+              {/* Checking if emiPlans is string or array */}
+              {Array.isArray(loanData.emiPlans) ? (
+                loanData.emiPlans.map((plan, index) => (
+                  <span key={index} className="bg-primary/5 text-primary border border-primary/20 px-4 py-2 rounded-lg font-bold text-sm">
+                    {plan} Months
+                  </span>
+                ))
+              ) : (
+                <span className="bg-primary/5 text-primary border border-primary/20 px-4 py-2 rounded-lg font-bold text-sm">
+                  {loanData.emiPlans || loanData.duration || "Flexible"} Months
+                </span>
+              )}
+            </div>
+          </div>
 
-          {/* Apply Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
+          {/* Action Buttons */}
+          <div className="space-y-4">
             <Link
               to={"/loan-form"}
               state={loanData}
-              className="btn-main w-full shadow-lg shadow-primary/30 text-lg"
+              className="btn btn-primary w-full h-16 text-lg font-bold rounded-xl shadow-xl shadow-primary/20"
             >
-              Apply Now
+              Apply for this Loan
             </Link>
-            <p className="text-center text-sm text-base-content/50 mt-3">
-              Quick approval • Flexible terms • No hidden fees
+            <p className="text-center text-xs text-slate-400 font-medium italic">
+              * Subject to terms and conditions based on your credit profile.
             </p>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
     </div>
