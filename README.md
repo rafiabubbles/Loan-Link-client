@@ -6,8 +6,8 @@
 
 ## 🔗 Project Resources
 
-- **🌐 Live Deployment**: [Visit LoanLink][(https://loanlink-app.netlify.app/)](https://loan-link-client-aky6.vercel.app/)]
-- **📂 Backend API**: [Server Repository](https://github.com/rafiabubbles/Micro-loan-server.git)
+- **🌐 Live Deployment**: [Visit LoanLink][(https://loan-link-client-aky6.vercel.app)]
+- **📂 Backend API**: [Server Repository][(https://github.com/rafiabubbles/Micro-loan-server.git)]
 - **📂 Frontend UI**: [Client Repository]https://github.com/rafiabubbles/Loan-Link-client.git
 
 ---
