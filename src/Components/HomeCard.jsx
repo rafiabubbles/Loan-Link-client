@@ -45,7 +45,7 @@ const HomeCard = () => {
       )}
 
       <div className="mt-16 text-center">
-        <Link to="/loans" className="btn btn-primary btn-outline btn-lg rounded-full px-12 transition-all">
+        <Link to="/all-loans" className="btn btn-primary btn-outline btn-lg rounded-full px-12 transition-all">
           View All Loans
         </Link>
       </div>
